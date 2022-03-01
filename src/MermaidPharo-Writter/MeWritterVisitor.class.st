@@ -81,7 +81,29 @@ MeWritterVisitor >> visitClass: aMeClass [
 
 	self
 		<< 'class ';
-		<<< aMeClass name
+		<<< aMeClass name.
+	aMeClass attributes ifNotEmpty: [ :attributes | 
+		self
+			<<< ' {';
+			cr.
+		self inIndent: [ 
+			attributes
+				do: [ :attribute | attribute accept: self ]
+				separatedBy: [ self cr ].
+			self cr ].
+		self << '}' ]
+]
+
+{ #category : #visiting }
+MeWritterVisitor >> visitClassAttribute: aClassAttribute [
+
+	self indent.
+	(aClassAttribute type isNotNil and: [ 
+		 aClassAttribute type isNotEmpty ]) ifTrue: [ 
+		self
+			<<< aClassAttribute type;
+			<<< ' ' ].
+	self <<< aClassAttribute name
 ]
 
 { #category : #visiting }

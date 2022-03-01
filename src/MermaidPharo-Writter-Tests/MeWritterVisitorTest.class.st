@@ -27,6 +27,31 @@ MeWritterVisitorTest >> testWriteClass [
 ]
 
 { #category : #running }
+MeWritterVisitorTest >> testWriteClassAttribute [
+
+	| result |
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          (MeClassAttribute new
+			           name: 'aAttribute';
+			           yourself) accept: writter ].
+	self assert: result equals: 'aAttribute'
+]
+
+{ #category : #running }
+MeWritterVisitorTest >> testWriteClassAttributeWithType [
+
+	| result |
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          (MeClassAttribute new
+			           name: 'aAttribute';
+			           type: 'int';
+			           yourself) accept: writter ].
+	self assert: result equals: 'int aAttribute'
+]
+
+{ #category : #running }
 MeWritterVisitorTest >> testWriteClassDiagram [
 
 	| result |
@@ -34,6 +59,26 @@ MeWritterVisitorTest >> testWriteClassDiagram [
 		          writter outputStream: stream.
 		          MeClassDiagram new accept: writter ].
 	self assert: result equals: 'classDiagram'
+]
+
+{ #category : #running }
+MeWritterVisitorTest >> testWriteClassWithAttribute [
+
+	| result classA attributeA |
+	classA := MeClass new
+		          name: 'ClassA';
+		          yourself.
+	attributeA := MeClassAttribute new
+		              name: 'myAttribute';
+		              type: 'int';
+		              yourself.
+	classA addAttribute: attributeA.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          classA accept: writter ].
+	self assert: result equals: 'class ClassA {
+    int myAttribute
+}'
 ]
 
 { #category : #running }

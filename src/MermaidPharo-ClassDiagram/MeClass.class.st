@@ -2,7 +2,8 @@ Class {
 	#name : #MeClass,
 	#superclass : #MeEntity,
 	#instVars : [
-		'name'
+		'name',
+		'attributes'
 	],
 	#category : #'MermaidPharo-ClassDiagram'
 }
@@ -10,6 +11,23 @@ Class {
 { #category : #accessing }
 MeClass >> accept: mermaidWritter [
 	mermaidWritter visitClass: self 
+]
+
+{ #category : #accessing }
+MeClass >> addAttribute: aMeClassAttribute [
+	attributes add: aMeClassAttribute
+]
+
+{ #category : #accessing }
+MeClass >> attributes [
+
+	^ attributes
+]
+
+{ #category : #accessing }
+MeClass >> initialize [
+	super initialize.
+	attributes := OrderedCollection new
 ]
 
 { #category : #accessing }
