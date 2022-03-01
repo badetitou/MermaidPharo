@@ -125,6 +125,20 @@ MeWritterVisitor >> visitClassDiagram: aClassDiagram [
 ]
 
 { #category : #visiting }
+MeWritterVisitor >> visitClassMethod: aClassMethod [
+
+	self indent.
+	self
+		<<< aClassMethod name;
+		<<< '()'.
+	(aClassMethod returnType isNotNil and: [ 
+		 aClassMethod returnType isNotEmpty ]) ifTrue: [ 
+		self
+			<<< ' ';
+			<<< aClassMethod returnType ]
+]
+
+{ #category : #visiting }
 MeWritterVisitor >> visitRelation: aRelation [
 
 	self

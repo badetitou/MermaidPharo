@@ -62,6 +62,31 @@ MeWritterVisitorTest >> testWriteClassDiagram [
 ]
 
 { #category : #running }
+MeWritterVisitorTest >> testWriteClassMethod [
+
+	| result |
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          (MeClassMethod new
+			           name: 'aMethod';
+			           yourself) accept: writter ].
+	self assert: result equals: 'aMethod()'
+]
+
+{ #category : #running }
+MeWritterVisitorTest >> testWriteClassMethodWithReturnType [
+
+	| result |
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          (MeClassMethod new
+			           name: 'aMethod';
+			returnType: 'int';
+			           yourself) accept: writter ].
+	self assert: result equals: 'aMethod() int'
+]
+
+{ #category : #running }
 MeWritterVisitorTest >> testWriteClassWithAttribute [
 
 	| result classA attributeA |

@@ -3,7 +3,8 @@ Class {
 	#superclass : #MeEntity,
 	#instVars : [
 		'name',
-		'attributes'
+		'attributes',
+		'methods'
 	],
 	#category : #'MermaidPharo-ClassDiagram'
 }
@@ -19,15 +20,28 @@ MeClass >> addAttribute: aMeClassAttribute [
 ]
 
 { #category : #accessing }
+MeClass >> addMethod: aMeClassMethod [
+	methods add: aMeClassMethod
+]
+
+{ #category : #accessing }
 MeClass >> attributes [
 
 	^ attributes
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 MeClass >> initialize [
+
 	super initialize.
-	attributes := OrderedCollection new
+	attributes := OrderedCollection new.
+	methods := OrderedCollection new
+]
+
+{ #category : #accessing }
+MeClass >> methods [
+
+	^ methods
 ]
 
 { #category : #accessing }
