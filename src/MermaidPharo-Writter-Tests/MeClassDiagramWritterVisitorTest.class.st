@@ -28,3 +28,26 @@ MeClassDiagramWritterVisitorTest >> testWriteClassDiagramWithOnClass [
 	self assert: result equals: 'classDiagram
     class Duck'
 ]
+
+{ #category : #running }
+MeClassDiagramWritterVisitorTest >> testWriteClassDiagramWithTwoClassesAndRelation [
+
+	| result classA classB relation |
+	classA := MeClass new
+		          name: 'DuckA';
+		          yourself.
+	classB := MeClass new
+		          name: 'DuckB';
+		          yourself.
+	relation := MeCDRelation from: classA to: classB.
+	classDiagram addClass: classA.
+	classDiagram addClass: classB.
+	classDiagram addRelation: relation.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          classDiagram accept: writter ].
+	self assert: result equals: 'classDiagram
+    class DuckA
+    class DuckB
+    DuckA -- DuckB'
+]

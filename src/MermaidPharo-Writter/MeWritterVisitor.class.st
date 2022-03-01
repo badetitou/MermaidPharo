@@ -29,10 +29,22 @@ MeWritterVisitor >> cr [
 ]
 
 { #category : #visiting }
+MeWritterVisitor >> inIndent: aBlock [
+	self indentPlus.
+	aBlock value.
+	self indentMinus
+]
+
+{ #category : #visiting }
 MeWritterVisitor >> indent [
 
 	1 to: indentNumber do: [ :i | 
 	1 to: indentSize do: [ :j | self <<< String space ] ]
+]
+
+{ #category : #visiting }
+MeWritterVisitor >> indentMinus [
+	indentNumber := indentNumber - 1
 ]
 
 { #category : #visiting }
@@ -77,7 +89,24 @@ MeWritterVisitor >> visitClassDiagram: aClassDiagram [
 
 	self << 'classDiagram'.
 	aClassDiagram classes ifNotEmpty: [ :classes | 
-		self cr;
-		indentPlus.
-		classes do: [ :class | class accept: self ] separatedBy: [ self cr ] ]
+		self cr.
+		self inIndent: [ 
+			classes
+				do: [ :class | class accept: self ]
+				separatedBy: [ self cr ] ] ].
+	aClassDiagram relations ifNotEmpty: [ :relations | 
+		self cr.
+		self inIndent: [ 
+			relations
+				do: [ :relation | relation accept: self ]
+				separatedBy: [ self cr ] ] ]
+]
+
+{ #category : #visiting }
+MeWritterVisitor >> visitRelation: aRelation [
+
+	self
+		<< aRelation fromClass name;
+		<<< ' -- ';
+		<<< aRelation toClass name
 ]

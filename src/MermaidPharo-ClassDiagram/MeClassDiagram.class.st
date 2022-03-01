@@ -5,7 +5,8 @@ Class {
 	#name : #MeClassDiagram,
 	#superclass : #MeDiagram,
 	#instVars : [
-		'classes'
+		'classes',
+		'relations'
 	],
 	#category : #'MermaidPharo-ClassDiagram'
 }
@@ -19,6 +20,12 @@ MeClassDiagram >> accept: mermaidWritter [
 MeClassDiagram >> addClass: aMeClass [
 
 	^ classes add: aMeClass
+]
+
+{ #category : #accessing }
+MeClassDiagram >> addRelation: aMeRelation [
+
+	^ relations add: aMeRelation
 ]
 
 { #category : #accessing }
@@ -36,5 +43,18 @@ MeClassDiagram >> classes: anObject [
 { #category : #visiting }
 MeClassDiagram >> initialize [
 	super initialize.
-	classes := OrderedCollection new
+	classes := OrderedCollection new.
+	relations := OrderedCollection new
+]
+
+{ #category : #accessing }
+MeClassDiagram >> relations [
+
+	^ relations
+]
+
+{ #category : #accessing }
+MeClassDiagram >> relations: anObject [
+
+	relations := anObject
 ]
