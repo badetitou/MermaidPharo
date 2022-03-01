@@ -115,5 +115,10 @@ MeWritterVisitor >> visitRelation: aRelation [
 				 ifFalse: [ '--' ]);
 		<<< aRelation toRelationType rightIdentifier;
 		<<< ' ';
-		<<< aRelation toClass name
+		<<< aRelation toClass name.
+	(aRelation label isNotNil and: [ aRelation label isNotEmpty ]) 
+		ifTrue: [ 
+			self
+				<<< ' : ';
+				<<< aRelation label ]
 ]

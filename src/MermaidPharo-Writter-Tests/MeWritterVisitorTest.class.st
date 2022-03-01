@@ -68,6 +68,22 @@ MeWritterVisitorTest >> testWriteRelation [
 ]
 
 { #category : #running }
+MeWritterVisitorTest >> testWriteRelationLabel [
+
+	| result classA classB relation |
+	classA := MeClass new name: 'ClassA'; yourself.
+	classB := MeClass new name: 'ClassB'; yourself.
+	relation := MeCDRelation new.
+	relation fromClass: classA.
+	relation toClass: classB.
+	relation label: 'A Label'.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          relation accept: writter ].
+	self assert: result equals: 'ClassA -- ClassB : A Label'
+]
+
+{ #category : #running }
 MeWritterVisitorTest >> testWriteSolidRelation [
 
 	| result classA classB relation |
