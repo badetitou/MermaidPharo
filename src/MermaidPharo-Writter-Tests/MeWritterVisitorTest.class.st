@@ -127,6 +127,32 @@ MeWritterVisitorTest >> testWriteClassWithMethod [
 ]
 
 { #category : #running }
+MeWritterVisitorTest >> testWriteClassWithMethodAndAttribute [
+
+	| result classA attributeA methodA |
+	classA := MeClass new
+		          name: 'ClassA';
+		          yourself.
+	methodA := MeClassMethod new
+		           name: 'myMethod';
+		           returnType: 'int';
+		           yourself.
+	attributeA := MeClassAttribute new
+		              name: 'myAttribute';
+		              type: 'int';
+		              yourself.
+	classA addAttribute: attributeA.
+	classA addMethod: methodA.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          classA accept: writter ].
+	self assert: result equals: 'class ClassA {
+    int myAttribute
+    myMethod() int
+}'
+]
+
+{ #category : #running }
 MeWritterVisitorTest >> testWriteDashedRelation [
 
 	| result classA classB relation |
