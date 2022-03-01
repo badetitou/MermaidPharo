@@ -107,6 +107,10 @@ MeWritterVisitor >> visitRelation: aRelation [
 
 	self
 		<< aRelation fromClass name;
-		<<< ' -- ';
+		<<< ' ';
+		<<< aRelation fromRelationType leftIdentifier;
+		<<< '--';
+		<<< aRelation toRelationType rightIdentifier;
+		<<< ' ';
 		<<< aRelation toClass name
 ]

@@ -5,7 +5,9 @@ Class {
 		'label',
 		'isDashed',
 		'fromClass',
-		'toClass'
+		'toClass',
+		'fromRelationType',
+		'toRelationType'
 	],
 	#category : #'MermaidPharo-ClassDiagram'
 }
@@ -16,6 +18,14 @@ MeCDRelation class >> from: fromClass to: toClass [
 	^ self new
 		  fromClass: fromClass;
 		  toClass: toClass;
+		  yourself
+]
+
+{ #category : #'instance creation' }
+MeCDRelation class >> inheritFrom: fromClass to: toClass [
+
+	^ (self from: fromClass to: toClass)
+		  fromRelationType: MeCDInheritanceRelationType new;
 		  yourself
 ]
 
@@ -37,10 +47,24 @@ MeCDRelation >> fromClass: anObject [
 ]
 
 { #category : #accessing }
+MeCDRelation >> fromRelationType [
+
+	^ fromRelationType
+]
+
+{ #category : #accessing }
+MeCDRelation >> fromRelationType: anObject [
+
+	fromRelationType := anObject
+]
+
+{ #category : #accessing }
 MeCDRelation >> initialize [
 
 	super initialize.
-	isDashed := false
+	isDashed := false.
+	fromRelationType := MeCDNoRelationType new.
+	toRelationType := MeCDNoRelationType new
 ]
 
 { #category : #accessing }
@@ -65,4 +89,16 @@ MeCDRelation >> toClass [
 MeCDRelation >> toClass: anObject [
 
 	toClass := anObject
+]
+
+{ #category : #accessing }
+MeCDRelation >> toRelationType [
+
+	^ toRelationType
+]
+
+{ #category : #accessing }
+MeCDRelation >> toRelationType: anObject [
+
+	toRelationType := anObject
 ]
