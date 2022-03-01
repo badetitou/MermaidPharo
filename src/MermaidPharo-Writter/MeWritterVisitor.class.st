@@ -5,7 +5,9 @@ Class {
 	#name : #MeWritterVisitor,
 	#superclass : #Object,
 	#instVars : [
-		'outputStream'
+		'outputStream',
+		'indentNumber',
+		'indentSize'
 	],
 	#category : #'MermaidPharo-Writter'
 }
@@ -22,7 +24,27 @@ MeWritterVisitor >> <<< aString [
 ]
 
 { #category : #visiting }
+MeWritterVisitor >> cr [
+	outputStream << String cr
+]
+
+{ #category : #visiting }
 MeWritterVisitor >> indent [
+
+	1 to: indentNumber do: [ :i | 
+	1 to: indentSize do: [ :j | self <<< String space ] ]
+]
+
+{ #category : #visiting }
+MeWritterVisitor >> indentPlus [
+	indentNumber := indentNumber + 1
+]
+
+{ #category : #visiting }
+MeWritterVisitor >> initialize [
+	super initialize.
+	indentNumber := 0.
+	indentSize := 4
 ]
 
 { #category : #accessing }
@@ -44,10 +66,18 @@ MeWritterVisitor >> visit: meEntity [
 
 { #category : #visiting }
 MeWritterVisitor >> visitClass: aMeClass [
-	self <<< aMeClass name
+
+	self
+		<< 'class ';
+		<<< aMeClass name
 ]
 
 { #category : #visiting }
 MeWritterVisitor >> visitClassDiagram: aClassDiagram [
-	self << 'classDiagram'
+
+	self << 'classDiagram'.
+	aClassDiagram classes ifNotEmpty: [ :classes | 
+		self cr;
+		indentPlus.
+		classes do: [ :class | class accept: self ] separatedBy: [ self cr ] ]
 ]

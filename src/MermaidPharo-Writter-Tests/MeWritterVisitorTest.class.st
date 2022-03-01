@@ -23,7 +23,7 @@ MeWritterVisitorTest >> testWriteClass [
 	result := String streamContents: [ :stream | 
 		          writter outputStream: stream.
 		          (MeClass new name: 'Duck'; yourself) accept: writter ].
-	self assert: result equals: 'Duck'
+	self assert: result equals: 'class Duck'
 ]
 
 { #category : #running }
