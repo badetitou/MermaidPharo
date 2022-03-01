@@ -35,3 +35,56 @@ MeWritterVisitorTest >> testWriteClassDiagram [
 		          MeClassDiagram new accept: writter ].
 	self assert: result equals: 'classDiagram'
 ]
+
+{ #category : #running }
+MeWritterVisitorTest >> testWriteDashedRelation [
+
+	| result classA classB relation |
+	classA := MeClass new name: 'ClassA'; yourself.
+	classB := MeClass new name: 'ClassB'; yourself.
+	relation := MeCDRelation new.
+	relation fromClass: classA.
+	relation toClass: classB.
+	relation beDashed.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          relation accept: writter ].
+	self assert: result equals: 'ClassA .. ClassB'
+]
+
+{ #category : #running }
+MeWritterVisitorTest >> testWriteRelation [
+
+	| result classA classB relation |
+	classA := MeClass new name: 'ClassA'; yourself.
+	classB := MeClass new name: 'ClassB'; yourself.
+	relation := MeCDRelation new.
+	relation fromClass: classA.
+	relation toClass: classB.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          relation accept: writter ].
+	self assert: result equals: 'ClassA -- ClassB'
+]
+
+{ #category : #running }
+MeWritterVisitorTest >> testWriteSolidRelation [
+
+	| result classA classB relation |
+	classA := MeClass new
+		          name: 'ClassA';
+		          yourself.
+	classB := MeClass new
+		          name: 'ClassB';
+		          yourself.
+	relation := MeCDRelation new.
+	relation fromClass: classA.
+	relation toClass: classB.
+	relation
+		beDashed;
+		beSolid.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          relation accept: writter ].
+	self assert: result equals: 'ClassA -- ClassB'
+]

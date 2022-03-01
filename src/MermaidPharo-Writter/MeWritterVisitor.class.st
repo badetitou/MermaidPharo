@@ -108,8 +108,11 @@ MeWritterVisitor >> visitRelation: aRelation [
 	self
 		<< aRelation fromClass name;
 		<<< ' ';
-		<<< aRelation fromRelationType leftIdentifier;
-		<<< '--';
+		<<< aRelation fromRelationType leftIdentifier.
+	self
+		<<< (aRelation isDashed
+				 ifTrue: [ '..' ]
+				 ifFalse: [ '--' ]);
 		<<< aRelation toRelationType rightIdentifier;
 		<<< ' ';
 		<<< aRelation toClass name

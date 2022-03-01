@@ -35,6 +35,16 @@ MeCDRelation >> accept: mermaidWritter [
 ]
 
 { #category : #accessing }
+MeCDRelation >> beDashed [
+	isDashed := true
+]
+
+{ #category : #accessing }
+MeCDRelation >> beSolid [
+	isDashed := false
+]
+
+{ #category : #accessing }
 MeCDRelation >> fromClass [
 
 	^ fromClass
@@ -65,6 +75,11 @@ MeCDRelation >> initialize [
 	isDashed := false.
 	fromRelationType := MeCDNoRelationType new.
 	toRelationType := MeCDNoRelationType new
+]
+
+{ #category : #accessing }
+MeCDRelation >> isDashed [
+	^ isDashed
 ]
 
 { #category : #accessing }
