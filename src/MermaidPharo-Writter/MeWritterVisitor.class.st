@@ -43,6 +43,11 @@ MeWritterVisitor >> visit: meEntity [
 ]
 
 { #category : #visiting }
+MeWritterVisitor >> visitClass: aMeClass [
+	self <<< aMeClass name
+]
+
+{ #category : #visiting }
 MeWritterVisitor >> visitClassDiagram: aClassDiagram [
 	self << 'classDiagram'
 ]
