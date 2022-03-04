@@ -11,3 +11,11 @@ Class {
 MeDiagram >> accept: aMermaidVisitor [
 	aMermaidVisitor visitDiagram: self
 ]
+
+{ #category : #'as yet unclassified' }
+MeDiagram >> exportWith: aMermaidWritter [
+
+	^ String streamContents: [ :stream |
+		  aMermaidWritter outputStream: stream.
+		  self accept: aMermaidWritter ]
+]
