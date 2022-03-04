@@ -5,7 +5,7 @@ MeDiagram >> meInspectMermaidDiagram: aBuilder [
 
 	"protocol: #'as yet unclassified'"
 
-	<inspectorPresentationOrder: 1 title: 'Mermaid SVG Diagram'>
+	<inspectorPresentationOrder: 1 title: 'Mermaid Image'>
 	| encodedDiagram |
 	encodedDiagram := MermaidInkEncoder new encodeDiagram: self.
 	^ SpPresenter new
