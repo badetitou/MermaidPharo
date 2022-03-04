@@ -1,5 +1,13 @@
 "
 I generate a mermaid class diagram from a set of pharo classes
+
+## Example
+
+```st
+P2M new
+	pharoClasses: MeEntity allSubclasses;
+	generateClassDiagram
+```
 "
 Class {
 	#name : #P2M,

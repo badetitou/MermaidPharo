@@ -5,7 +5,7 @@ MeDiagram >> meInspectMermaidDiagram: aBuilder [
 
 	"protocol: #'as yet unclassified'"
 
-	<inspectorPresentationOrder: -2 title: 'Mermaid Diagram'>
+	<inspectorPresentationOrder: 1 title: 'Mermaid SVG Diagram'>
 	| encodedDiagram |
 	encodedDiagram := MermaidInkEncoder new encodeDiagram: self.
 	^ SpPresenter new
@@ -24,4 +24,16 @@ MeDiagram >> meInspectMermaidDiagram: aBuilder [
 						    yourself);
 				   yourself);
 		  yourself
+]
+
+{ #category : #'*MermaidPharo-Extension' }
+MeDiagram >> meInspectMermaidDiagramString: aBuilder [
+
+	"protocol: #'as yet unclassified'"
+
+	<inspectorPresentationOrder: 0 title: 'Mermaid code'>
+	^ SpCodePresenter new
+		  withoutSyntaxHighlight;
+		  withLineNumbers;
+		  text: (self exportWith: MeWritterVisitor new)
 ]
