@@ -32,4 +32,8 @@ BaselineOfMermaidPharo >> definePackages: spec [
 		package: 'MermaidPharo-ClassDiagram';
 		package: 'MermaidPharo-Writter';
 		package: 'MermaidPharo-Writter-Tests'
+		with: [ spec requires: #( 'MermaidPharo-Writter' ) ];
+		package: 'Pharo2Mermaid';
+		package: 'Pharo2Mermaid-Tests'
+		with: [ spec requires: #( 'Pharo2Mermaid' ) ]
 ]
