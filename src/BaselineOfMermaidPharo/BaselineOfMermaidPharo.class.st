@@ -33,6 +33,7 @@ BaselineOfMermaidPharo >> definePackages: spec [
 	spec
 		package: 'MermaidPharo';
 		package: 'MermaidPharo-Extension' with: [ spec requires: #( 'ZLibBinding' ) ];
+		package: 'MermaidPharo-Extension-Tests' with: [ spec requires: #( 'MermaidPharo-Extension' ) ];
 		package: 'MermaidPharo-ClassDiagram';
 		package: 'MermaidPharo-Writter';
 		package: 'MermaidPharo-Writter-Tests'
