@@ -26,13 +26,12 @@ Class {
 { #category : #converting }
 MermaidInkEncoder >> compress: data [
 
-	^ ByteArray streamContents: [ :stream | 
-		  Zlib new
-			  compress: data
-			  firstIndex: 1
-			  byteLength: data size
-			  level: 9
-			  on: stream ]
+	^ Zlib new
+		  compress: data
+		  firstIndex: 1
+		  byteLength: data size
+		  level: 9
+		  forGzip: false
 ]
 
 { #category : #converting }
@@ -49,8 +48,6 @@ MermaidInkEncoder >> encode: aClassDiagramString [
 	| data compressedData |
 	data := (self insertInTemplate: aClassDiagramString) asByteArray.
 	compressedData := self compress: data.
-	"remove first element that comes from we do not know what"
-	compressedData := compressedData copyFrom: 2 to: compressedData size.
 	^ self convertToBase64URLsafe: compressedData
 ]
 
@@ -76,5 +73,5 @@ MermaidInkEncoder >> insertInTemplate: aClassDiagramString [
 			  << (self formatClassDiagramString: aClassDiagramString);
 			  <<
 				  '","mermaid":"{<1s>  \"theme\": \"dark\"<1s>}","updateEditor":false,"autoSync":true,"updateDiagram":false}' ]) 
-		 expandMacrosWith: '\n')
+		 copyReplaceAll: '<1s>' with:  '\n')
 ]
