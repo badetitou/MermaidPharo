@@ -6,3 +6,8 @@ Class {
 	#superclass : #Object,
 	#category : #MermaidPharo
 }
+
+{ #category : #'as yet unclassified' }
+MeDiagram >> accept: aMermaidVisitor [
+	aMermaidVisitor visitDiagram: self
+]

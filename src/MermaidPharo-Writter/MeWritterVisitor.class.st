@@ -140,6 +140,11 @@ MeWritterVisitor >> visitClassMethod: aClassMethod [
 ]
 
 { #category : #visiting }
+MeWritterVisitor >> visitDiagram: aDiagram [
+
+]
+
+{ #category : #visiting }
 MeWritterVisitor >> visitRelation: aRelation [
 
 	self
