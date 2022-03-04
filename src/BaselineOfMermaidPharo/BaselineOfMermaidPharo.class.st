@@ -20,8 +20,7 @@ BaselineOfMermaidPharo >> defineDependencies: spec [
 
 	spec
 		baseline: 'ZLibBinding'
-		with: [ spec repository: 'github://badetitou/libs-common:/src' ];
-		import: 'Zlib'
+		with: [ spec repository: 'github://badetitou/libs-common:main/src' ]
 ]
 
 { #category : #baselines }
@@ -33,7 +32,7 @@ BaselineOfMermaidPharo >> definePackages: spec [
 
 	spec
 		package: 'MermaidPharo';
-		package: 'MermaidPharo-Extension' with: [ spec requires: #( 'Zlib' ) ];
+		package: 'MermaidPharo-Extension' with: [ spec requires: #( 'ZLibBinding' ) ];
 		package: 'MermaidPharo-ClassDiagram';
 		package: 'MermaidPharo-Writter';
 		package: 'MermaidPharo-Writter-Tests'
