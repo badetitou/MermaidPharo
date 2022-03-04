@@ -57,7 +57,7 @@ MermaidInkEncoder >> encode: aClassDiagramString [
 { #category : #converting }
 MermaidInkEncoder >> encodeDiagram: aMeDiagram [
 
-	self encode: (aMeDiagram exportWith: MeWritterVisitor new)
+	^ self encode: (aMeDiagram exportWith: MeWritterVisitor new)
 ]
 
 { #category : #converting }
