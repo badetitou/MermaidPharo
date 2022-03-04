@@ -7,7 +7,9 @@ Class {
 	#instVars : [
 		'outputStream',
 		'indentNumber',
-		'indentSize'
+		'indentSize',
+		'shouldExportAttribute',
+		'shouldExportMethod'
 	],
 	#category : #'MermaidPharo-Writter'
 }
@@ -26,6 +28,26 @@ MeWritterVisitor >> <<< aString [
 { #category : #visiting }
 MeWritterVisitor >> cr [
 	outputStream << String cr
+]
+
+{ #category : #configuration }
+MeWritterVisitor >> doExportClassAttribute [
+	shouldExportAttribute := true
+]
+
+{ #category : #configuration }
+MeWritterVisitor >> doExportClassMethod [
+	shouldExportMethod := true
+]
+
+{ #category : #configuration }
+MeWritterVisitor >> doNotExportClassAttribute [
+	shouldExportAttribute := false
+]
+
+{ #category : #configuration }
+MeWritterVisitor >> doNotExportClassMethod [
+	shouldExportMethod := false
 ]
 
 { #category : #visiting }
@@ -56,7 +78,9 @@ MeWritterVisitor >> indentPlus [
 MeWritterVisitor >> initialize [
 	super initialize.
 	indentNumber := 0.
-	indentSize := 4
+	indentSize := 4.
+	shouldExportAttribute := true.
+	shouldExportMethod := true.
 ]
 
 { #category : #accessing }
@@ -88,16 +112,22 @@ MeWritterVisitor >> visitClass: aMeClass [
 				<<< ' {';
 				cr.
 			self inIndent: [ 
-				aMeClass attributes , aMeClass methods
-					do: [ :attribute | attribute accept: self ]
-					separatedBy: [ self cr ].
-				self cr ].
+				shouldExportAttribute ifTrue: [ 
+					aMeClass attributes ifNotEmpty: [ :attributes | 
+						attributes do: [ :attribute | 
+							attribute accept: self.
+							self cr ] ] ].
+				shouldExportMethod ifTrue: [ 
+					aMeClass methods ifNotEmpty: [ :methods | 
+						methods do: [ :method | 
+							method accept: self.
+							self cr ] ] ] ].
 			self << '}' ]
 ]
 
 { #category : #visiting }
 MeWritterVisitor >> visitClassAttribute: aClassAttribute [
-
+	shouldExportAttribute ifFalse: [ ^ nil ].
 	self indent.
 	(aClassAttribute type isNotNil and: [ 
 		 aClassAttribute type isNotEmpty ]) ifTrue: [ 
@@ -127,7 +157,7 @@ MeWritterVisitor >> visitClassDiagram: aClassDiagram [
 
 { #category : #visiting }
 MeWritterVisitor >> visitClassMethod: aClassMethod [
-
+	shouldExportMethod ifFalse: [ ^ nil ].
 	self indent.
 	self
 		<<< aClassMethod name;
