@@ -41,12 +41,15 @@ P2M >> classDiagram: anObject [
 P2M >> createHierarchyFor: class [
 
 	| source target |
-	source := self classDiagram classes detect: [ :meClass | 
-		          meClass name = class name ].
-	target := self classDiagram classes
-		          detect: [ :meClass | meClass name = class superclass name ]
-		          ifNone: [ self addClassToDiagram: class superclass ].
-	self classDiagram addRelation: (MeCDRelation inheritFrom: target to: source )
+	class superclass ifNotNil: [ 
+		source := self classDiagram classes detect: [ :meClass | 
+			          meClass name = class name ].
+		target := self classDiagram classes
+			          detect: [ :meClass | 
+			          meClass name = class superclass name ]
+			          ifNone: [ self addClassToDiagram: class superclass ].
+		self classDiagram addRelation:
+			(MeCDRelation inheritFrom: target to: source) ]
 ]
 
 { #category : #adding }
