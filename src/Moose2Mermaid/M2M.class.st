@@ -1,24 +1,35 @@
+"
+## Example
+
+```st
+diagram := M2M new
+	metamodel: GLHModel resetMetamodel;
+	withoutBlock: [ :class | class package name ~= GLHModel class package name ];
+	generateClassDiagram.
+```
+"
 Class {
 	#name : #M2M,
 	#superclass : #Object,
 	#instVars : [
 		'metamodel',
 		'classDiagram',
-		'pharoClasses'
+		'pharoClasses',
+		'withoutBlock'
 	],
 	#category : #Moose2Mermaid
 }
 
 { #category : #accessing }
 M2M >> addClassToDiagram: aFM3Class [
-		| meClass |
+
+	| meClass |
 	meClass := MeClass new.
 	classDiagram addClass: meClass.
 	meClass name: aFM3Class name.
-	aFM3Class allComplexProperties do: [ :method | 
-		meClass addMethod: (self createMeClassMethod: method) ].
 	aFM3Class allPrimitiveProperties do: [ :attribute | 
-		meClass addAttribute: (self createMeClassAttribute: attribute) ].
+		(self withoutBlock value: attribute mmClass) ifFalse: [ 
+			meClass addAttribute: (self createMeClassAttribute: attribute) ] ].
 	^ meClass
 ]
 
@@ -65,39 +76,45 @@ M2M >> createMeClassMethod: aFM3Relation [
 ]
 
 { #category : #accessing }
+M2M >> createRelationFrom: source forProperty: complexProperty [
+
+	| oppositeClass |
+	^ complexProperty opposite ifNotNil: [ 
+		  oppositeClass := complexProperty opposite mmClass.
+		  complexProperty isDerived ifFalse: [ 
+			  self classDiagram classes
+				  detect: [ :meClass | meClass name = oppositeClass name ]
+				  ifFound: [ 
+					  | relation |
+					  relation := MeCDRelation from: oppositeClass to: source.
+					  complexProperty isContainer ifTrue: [ 
+						  relation fromRelationType: MeCDCompositionRelationType new ].
+					  relation fromRelationType ifNil: [ 
+						  relation fromRelationType: MeCDAssociationRelationType new ].
+					  relation label: complexProperty name.
+					  self classDiagram addRelation: relation ] ] ]
+]
+
+{ #category : #accessing }
 M2M >> createRelationsFor: aFM3Class [
 
 	| source |
 	source := self classDiagram classes detect: [ :meClass | 
-			          meClass name = aFM3Class name ].
+		          meClass name = aFM3Class name ].
 	aFM3Class complexProperties do: [ :complexProperty | 
-		| oppositeClass |
-		complexProperty opposite
-			ifNotNil: [ 
-				oppositeClass := complexProperty opposite mmClass.
-				complexProperty isDerived ifFalse: [ 
-					self classDiagram classes
-						detect: [ :meClass | meClass name = oppositeClass name ]
-						ifFound: [ 
-							| relation |
-							relation := MeCDRelation from: oppositeClass to: source.
-							complexProperty isContainer ifTrue: [ 
-								relation fromRelationType: MeCDCompositionRelationType new ].
-							relation fromRelationType ifNil: [ 
-								relation fromRelationType: MeCDAssociationRelationType new ].
-							self classDiagram addRelation: relation ]
-						ifNone: [ 
-						source addMethod: (self createMeClassMethod: complexProperty) ] ] ]
-			ifNil: [ 
-			source addMethod: (self createMeClassMethod: complexProperty) ] ]
+		(self withoutBlock value: complexProperty mmClass) ifFalse: [ 
+			self createRelationFrom: source forProperty: complexProperty ] ifTrue: [ self h ] ]
 ]
 
 { #category : #accessing }
 M2M >> generateClassDiagram [
+
+	| consideredClasses |
 	classDiagram := MeClassDiagram new.
-	metamodel classes do: [ :class | self addClassToDiagram: class ].
-	metamodel classes do: [ :class | self createHierarchyFor: class ].
-	metamodel classes do: [ :class | self createRelationsFor: class ].
+	consideredClasses := metamodel classes reject: self withoutBlock.
+	consideredClasses do: [ :class | self addClassToDiagram: class ].
+	consideredClasses do: [ :class | self createHierarchyFor: class ].
+	consideredClasses do: [ :class | self createRelationsFor: class ].
 	^ classDiagram
 ]
 
@@ -111,4 +128,16 @@ M2M >> metamodel1 [
 M2M >> metamodel: anObject [
 
 	metamodel := anObject
+]
+
+{ #category : #accessing }
+M2M >> withoutBlock [
+
+	^ withoutBlock
+]
+
+{ #category : #accessing }
+M2M >> withoutBlock: anObject [
+
+	withoutBlock := anObject
 ]
