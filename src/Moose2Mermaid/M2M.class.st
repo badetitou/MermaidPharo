@@ -4,7 +4,9 @@
 ```st
 diagram := M2M new
 	metamodel: GLHModel resetMetamodel;
-	withoutBlock: [ :class | class package name ~= GLHModel class package name ];
+	withoutBlock: [ :class | (class name endsWith: #Model) 
+		or: [ class package name ~= GLHModel class package name
+			or: [ (class name endsWith: #Entity) ] ]];
 	generateClassDiagram.
 ```
 "
@@ -55,7 +57,7 @@ M2M >> createHierarchyFor: aFM3Class [
 		target := self classDiagram classes
 			          detect: [ :meClass | 
 			          meClass name = aFM3Class superclass name ]
-			          ifNone: [ self addClassToDiagram: aFM3Class superclass ].
+			          ifNone: [ ^ nil ].
 		self classDiagram addRelation:
 			(MeCDRelation inheritFrom: target to: source) ]
 ]
