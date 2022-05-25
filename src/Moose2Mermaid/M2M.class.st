@@ -65,10 +65,39 @@ M2M >> createMeClassMethod: aFM3Relation [
 ]
 
 { #category : #accessing }
+M2M >> createRelationsFor: aFM3Class [
+
+	| source |
+	source := self classDiagram classes detect: [ :meClass | 
+			          meClass name = aFM3Class name ].
+	aFM3Class complexProperties do: [ :complexProperty | 
+		| oppositeClass |
+		complexProperty opposite
+			ifNotNil: [ 
+				oppositeClass := complexProperty opposite mmClass.
+				complexProperty isDerived ifFalse: [ 
+					self classDiagram classes
+						detect: [ :meClass | meClass name = oppositeClass name ]
+						ifFound: [ 
+							| relation |
+							relation := MeCDRelation from: oppositeClass to: source.
+							complexProperty isContainer ifTrue: [ 
+								relation fromRelationType: MeCDCompositionRelationType new ].
+							relation fromRelationType ifNil: [ 
+								relation fromRelationType: MeCDAssociationRelationType new ].
+							self classDiagram addRelation: relation ]
+						ifNone: [ 
+						source addMethod: (self createMeClassMethod: complexProperty) ] ] ]
+			ifNil: [ 
+			source addMethod: (self createMeClassMethod: complexProperty) ] ]
+]
+
+{ #category : #accessing }
 M2M >> generateClassDiagram [
 	classDiagram := MeClassDiagram new.
 	metamodel classes do: [ :class | self addClassToDiagram: class ].
 	metamodel classes do: [ :class | self createHierarchyFor: class ].
+	metamodel classes do: [ :class | self createRelationsFor: class ].
 	^ classDiagram
 ]
 
