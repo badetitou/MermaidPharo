@@ -12,3 +12,18 @@ P2M new
  pharoClasses: MeEntity allSubclasses;
  generateClassDiagram
 ```
+
+## Moose Example
+
+After loading the `moose` group, a common usage is:
+
+```st
+diagram := M2M new
+	metamodel: GLHModel resetMetamodel;
+	withoutBlock: [ :class | (class name endsWith: #Model) 
+		or: [ class package name ~= GLHModel class package name
+			or: [ (class name endsWith: #Entity) ] ]];
+	generateClassDiagram.
+```
+
+> The without block enable to only select the interesting entities of the metamodel
