@@ -25,6 +25,14 @@ BaselineOfMermaidPharo >> defineDependencies: spec [
 
 { #category : #baselines }
 BaselineOfMermaidPharo >> defineGroups: spec [
+
+	spec
+		group: 'default'
+		with:
+			#( 'MermaidPharo' 'MermaidPharo-Extension' 'MermaidPharo-ClassDiagram'
+			   'MermaidPharo-Writter' 'MermaidPharo-Writter-Tests'
+			   'Pharo2Mermaid' 'Pharo2Mermaid-Tests' );
+		group: 'moose' with: #( 'default' 'Moose2Mermaid' )
 ]
 
 { #category : #baselines }
@@ -32,13 +40,16 @@ BaselineOfMermaidPharo >> definePackages: spec [
 
 	spec
 		package: 'MermaidPharo';
-		package: 'MermaidPharo-Extension' with: [ spec requires: #( 'ZLibBinding' ) ];
-		package: 'MermaidPharo-Extension-Tests' with: [ spec requires: #( 'MermaidPharo-Extension' ) ];
+		package: 'MermaidPharo-Extension'
+		with: [ spec requires: #( 'ZLibBinding' ) ];
+		package: 'MermaidPharo-Extension-Tests'
+		with: [ spec requires: #( 'MermaidPharo-Extension' ) ];
 		package: 'MermaidPharo-ClassDiagram';
 		package: 'MermaidPharo-Writter';
 		package: 'MermaidPharo-Writter-Tests'
 		with: [ spec requires: #( 'MermaidPharo-Writter' ) ];
 		package: 'Pharo2Mermaid';
 		package: 'Pharo2Mermaid-Tests'
-		with: [ spec requires: #( 'Pharo2Mermaid' ) ]
+		with: [ spec requires: #( 'Pharo2Mermaid' ) ];
+		package: 'Moose2Mermaid'
 ]
