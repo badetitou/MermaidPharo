@@ -1,3 +1,6 @@
+"
+A basic entity
+"
 Class {
 	#name : #MeEntity,
 	#superclass : #Object,
