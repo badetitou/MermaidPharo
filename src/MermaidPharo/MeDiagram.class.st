@@ -15,7 +15,13 @@ MeDiagram >> accept: aMermaidVisitor [
 { #category : #'as yet unclassified' }
 MeDiagram >> exportWith: aMermaidWritter [
 
-	^ String streamContents: [ :stream |
-		  aMermaidWritter outputStream: stream.
-		  self accept: aMermaidWritter ]
+	^ String streamContents: [ :stream | 
+		  self exportWith: aMermaidWritter to: stream ]
+]
+
+{ #category : #'as yet unclassified' }
+MeDiagram >> exportWith: aMermaidWritter to: stream [
+
+	aMermaidWritter outputStream: stream.
+	self accept: aMermaidWritter
 ]
