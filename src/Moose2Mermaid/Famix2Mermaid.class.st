@@ -15,7 +15,9 @@ Famix2Mermaid >> addClassToDiagram: aPharoClass [
 	meClass := MeClass new.
 	classDiagram addClass: meClass.
 	meClass name: aPharoClass name.
-	aPharoClass methods do: [ :method | 
+	aPharoClass methods
+		select: [ :method | method name isNotEmpty ]
+		thenDo: [ :method | 
 		meClass addMethod: (self createMeClassMethod: method) ].
 	aPharoClass attributes do: [ :attribute | 
 		meClass addAttribute: (self createMeClassAttribute: attribute) ].
