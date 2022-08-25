@@ -9,7 +9,8 @@ Class {
 		'indentNumber',
 		'indentSize',
 		'shouldExportAttribute',
-		'shouldExportMethod'
+		'shouldExportMethod',
+		'endOfLine'
 	],
 	#category : #'MermaidPharo-Writter'
 }
@@ -27,7 +28,7 @@ MeWritterVisitor >> <<< aString [
 
 { #category : #visiting }
 MeWritterVisitor >> cr [
-	outputStream << String cr
+	outputStream << self endOfLine
 ]
 
 { #category : #configuration }
@@ -48,6 +49,18 @@ MeWritterVisitor >> doNotExportClassAttribute [
 { #category : #configuration }
 MeWritterVisitor >> doNotExportClassMethod [
 	shouldExportMethod := false
+]
+
+{ #category : #accessing }
+MeWritterVisitor >> endOfLine [
+
+	^ endOfLine
+]
+
+{ #category : #accessing }
+MeWritterVisitor >> endOfLine: anObject [
+
+	endOfLine := anObject
 ]
 
 { #category : #visiting }
@@ -81,6 +94,7 @@ MeWritterVisitor >> initialize [
 	indentSize := 4.
 	shouldExportAttribute := true.
 	shouldExportMethod := true.
+	endOfLine := String cr
 ]
 
 { #category : #accessing }
