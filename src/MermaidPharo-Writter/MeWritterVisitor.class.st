@@ -27,7 +27,7 @@ MeWritterVisitor >> <<< aString [
 
 { #category : #visiting }
 MeWritterVisitor >> cr [
-	outputStream << String crlf
+	outputStream << String cr
 ]
 
 { #category : #configuration }
