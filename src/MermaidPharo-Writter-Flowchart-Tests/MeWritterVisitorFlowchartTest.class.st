@@ -104,6 +104,6 @@ MeWritterVisitorFlowchartTest >> testWriteNodeWithoutAndStadiumShape [
 MeWritterVisitorFlowchartTest >> testWriteNodeWithoutName [
 
 	self
-		assertBlock: [ MeFCNode new accept: writter ]
-		raises: MeFCNodeNoNameError
+		should: [ MeFCNode new accept: writter ]
+		raise: MeFCNodeNoNameError
 ]
