@@ -9,9 +9,15 @@ MeWritterVisitorFlowchart >> visitFCLink: aMeFCLink [
 
 	self << aMeFCLink fromNode name.
 	self <<< ' '.
-	self <<< '---'.
+	aMeFCLink fromArrowType
+		ifNotNil: [ :fromArrowType | self <<< fromArrowType leftIdentifier ]
+		ifNil: [ self <<< aMeFCLink defaultArrowType new leftIdentifier ].
+	self <<< '-'.
+	aMeFCLink toArrowType
+		ifNotNil: [ :toArrowType | self <<< toArrowType rightIdentifier ]
+		ifNil: [ self <<< aMeFCLink defaultArrowType new rightIdentifier ].
 	self <<< ' '.
-	self << aMeFCLink toNode name.
+	self << aMeFCLink toNode name
 ]
 
 { #category : #visiting }

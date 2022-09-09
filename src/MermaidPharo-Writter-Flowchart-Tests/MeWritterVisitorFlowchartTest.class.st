@@ -17,6 +17,20 @@ MeWritterVisitorFlowchartTest >> setUp [
 ]
 
 { #category : #initialization }
+MeWritterVisitorFlowchartTest >> testWriteArrowRelationBetweenTwoNodes [
+
+	| result a b link |
+	a := (MeFCNode named: 'A').
+	b := (MeFCNode named: 'B').
+	link := MeFCLink newFromNode: a toNode: b.
+	link toArrowType: MeFCArrowHeadType new.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          link accept: writter ].
+	self assert: result equals: 'A --> B'
+]
+
+{ #category : #initialization }
 MeWritterVisitorFlowchartTest >> testWriteDiagramWithOneNode [
 
 	| flowchartDiagram result |
@@ -119,4 +133,19 @@ MeWritterVisitorFlowchartTest >> testWriteRelationBetweenTwoNodes [
 		          writter outputStream: stream.
 		          link accept: writter ].
 	self assert: result equals: 'A --- B'
+]
+
+{ #category : #initialization }
+MeWritterVisitorFlowchartTest >> testWriteTwoArrowRelationBetweenTwoNodes [
+
+	| result a b link |
+	a := MeFCNode named: 'A'.
+	b := MeFCNode named: 'B'.
+	link := MeFCLink newFromNode: a toNode: b.
+	link toArrowType: MeFCArrowHeadType new.
+	link fromArrowType: MeFCArrowHeadType new.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          link accept: writter ].
+	self assert: result equals: 'A <-> B'
 ]

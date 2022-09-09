@@ -27,6 +27,11 @@ MeFCLink >> accept: aMermaidVisitor [
 ]
 
 { #category : #accessing }
+MeFCLink >> defaultArrowType [
+	^ MeFCDashHeadType
+]
+
+{ #category : #accessing }
 MeFCLink >> fromArrowType [
 
 	^ fromArrowType
