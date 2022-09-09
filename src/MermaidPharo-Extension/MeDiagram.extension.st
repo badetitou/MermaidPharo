@@ -35,5 +35,5 @@ MeDiagram >> meInspectMermaidDiagramString: aBuilder [
 	^ SpCodePresenter new
 		  withoutSyntaxHighlight;
 		  withLineNumbers;
-		  text: (self exportWith: self defaultWritter new)
+		  text: (self exportWith: self class defaultWritter new)
 ]

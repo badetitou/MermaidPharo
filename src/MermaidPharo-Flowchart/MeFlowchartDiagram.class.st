@@ -17,6 +17,12 @@ MeFlowchartDiagram >> accept: mermaidWritter [
 ]
 
 { #category : #accessing }
+MeFlowchartDiagram >> addDefinition: aMeFCDefinition [
+
+	^ self definitions add: aMeFCDefinition
+]
+
+{ #category : #accessing }
 MeFlowchartDiagram >> definitions [
 
 	^ definitions
@@ -38,4 +44,10 @@ MeFlowchartDiagram >> direction [
 MeFlowchartDiagram >> direction: anObject [
 
 	direction := anObject
+]
+
+{ #category : #accessing }
+MeFlowchartDiagram >> initialize [
+	super initialize.
+	definitions := OrderedCollection new
 ]

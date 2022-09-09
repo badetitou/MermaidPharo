@@ -5,8 +5,7 @@ Class {
 	#name : #MeWritterVisitorFlowchartTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'writter',
-		'result'
+		'writter'
 	],
 	#category : #'MermaidPharo-Writter-Flowchart-Tests'
 }
@@ -15,6 +14,20 @@ Class {
 MeWritterVisitorFlowchartTest >> setUp [
 	super setUp.
 	writter := MeWritterVisitorFlowchart new
+]
+
+{ #category : #initialization }
+MeWritterVisitorFlowchartTest >> testWriteDiagramWithOneNode [
+
+	| flowchartDiagram result |
+	flowchartDiagram := MeFlowchartDiagram new.
+	flowchartDiagram direction: MeFCDirection TB.
+	flowchartDiagram addDefinition: (MeFCNode named: 'B') .
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          flowchartDiagram accept: writter ].
+	self assert: result equals: 'flowchart TB
+    B'
 ]
 
 { #category : #initialization }
@@ -43,6 +56,7 @@ MeWritterVisitorFlowchartTest >> testWriteFlowchartDiagramWithDirection [
 { #category : #initialization }
 MeWritterVisitorFlowchartTest >> testWriteNodeWithName [
 
+	| result |
 	result := String streamContents: [ :stream | 
 		          writter outputStream: stream.
 		          (MeFCNode named: 'B') accept: writter ].
@@ -52,6 +66,7 @@ MeWritterVisitorFlowchartTest >> testWriteNodeWithName [
 { #category : #initialization }
 MeWritterVisitorFlowchartTest >> testWriteNodeWithTitleAndStadiumShape [
 
+	| result |
 	result := String streamContents: [ :stream | 
 		          writter outputStream: stream.
 		          ((MeFCNode named: 'B')
@@ -64,6 +79,7 @@ MeWritterVisitorFlowchartTest >> testWriteNodeWithTitleAndStadiumShape [
 { #category : #initialization }
 MeWritterVisitorFlowchartTest >> testWriteNodeWithTitleButNoShape [
 
+	| result |
 	result := String streamContents: [ :stream | 
 		          writter outputStream: stream.
 		          ((MeFCNode named: 'B')
@@ -75,6 +91,7 @@ MeWritterVisitorFlowchartTest >> testWriteNodeWithTitleButNoShape [
 { #category : #initialization }
 MeWritterVisitorFlowchartTest >> testWriteNodeWithoutAndStadiumShape [
 
+	| result |
 	result := String streamContents: [ :stream | 
 		          writter outputStream: stream.
 		          ((MeFCNode named: 'B')

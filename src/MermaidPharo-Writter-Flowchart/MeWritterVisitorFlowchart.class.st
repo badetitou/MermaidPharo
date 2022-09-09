@@ -8,7 +8,7 @@ Class {
 MeWritterVisitorFlowchart >> visitFCNode: aMeFCNode [
 
 	aMeFCNode name ifNil: [ MeFCNodeNoNameError signal ].
-	self <<< aMeFCNode name.
+	self << aMeFCNode name.
 
 	aMeFCNode text
 		ifNotNil: [ :text | 
@@ -34,5 +34,9 @@ MeWritterVisitorFlowchart >> visitFlowchartDiagram: aFlowchartDiagram [
 	aFlowchartDiagram direction ifNotNil: [ :direction | 
 		self
 			<<< ' ';
-			<<< direction directionIdentifier ]
+			<<< direction directionIdentifier ].
+	aFlowchartDiagram definitions ifNotEmpty: [ :definitions | 
+		self cr.
+		self inIndent: [ 
+			definitions do: [ :definition | definition accept: self ] ] ]
 ]
