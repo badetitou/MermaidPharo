@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #visiting }
+MeWritterVisitorFlowchart >> visitFCLink: aMeFCLink [
+
+	self << aMeFCLink fromNode name.
+	self <<< ' '.
+	self <<< '---'.
+	self <<< ' '.
+	self << aMeFCLink toNode name.
+]
+
+{ #category : #visiting }
 MeWritterVisitorFlowchart >> visitFCNode: aMeFCNode [
 
 	aMeFCNode name ifNil: [ MeFCNodeNoNameError signal ].

@@ -107,3 +107,16 @@ MeWritterVisitorFlowchartTest >> testWriteNodeWithoutName [
 		should: [ MeFCNode new accept: writter ]
 		raise: MeFCNodeNoNameError
 ]
+
+{ #category : #initialization }
+MeWritterVisitorFlowchartTest >> testWriteRelationBetweenTwoNodes [
+
+	| result a b link |
+	a := (MeFCNode named: 'A').
+	b := (MeFCNode named: 'B').
+	link := MeFCLink newFromNode: a toNode: b.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          link accept: writter ].
+	self assert: result equals: 'A --- B'
+]
