@@ -26,3 +26,15 @@ MeWritterVisitorFlowchartTest >> testWriteFlowchartDiagram [
 		          flowchartDiagram accept: writter ].
 	self assert: result equals: 'flowchart'
 ]
+
+{ #category : #initialization }
+MeWritterVisitorFlowchartTest >> testWriteFlowchartDiagramWithDirection [
+
+	| flowchartDiagram result |
+	flowchartDiagram := MeFlowchartDiagram new.
+	flowchartDiagram direction: MeFCDirection TB.
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          flowchartDiagram accept: writter ].
+	self assert: result equals: 'flowchart TB'
+]

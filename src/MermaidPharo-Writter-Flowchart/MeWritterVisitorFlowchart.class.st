@@ -6,5 +6,10 @@ Class {
 
 { #category : #visiting }
 MeWritterVisitorFlowchart >> visitFlowchartDiagram: aFlowchartDiagram [
-	self <<< 'flowchart'
+
+	self <<< 'flowchart'.
+	aFlowchartDiagram direction ifNotNil: [ :direction | 
+		self
+			<<< ' ';
+			<<< direction directionIdentifier ]
 ]
