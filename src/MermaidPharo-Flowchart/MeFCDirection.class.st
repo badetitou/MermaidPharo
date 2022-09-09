@@ -1,6 +1,6 @@
 Class {
 	#name : #MeFCDirection,
-	#superclass : #MeDiagram,
+	#superclass : #MeEntity,
 	#instVars : [
 		'directionIdentifier'
 	],

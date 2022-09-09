@@ -1,5 +1,5 @@
 Class {
 	#name : #MeFCDefinition,
-	#superclass : #MeDiagram,
+	#superclass : #MeEntity,
 	#category : #'MermaidPharo-Flowchart'
 }

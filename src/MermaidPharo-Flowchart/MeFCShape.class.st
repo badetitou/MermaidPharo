@@ -1,6 +1,6 @@
 Class {
 	#name : #MeFCShape,
-	#superclass : #MeDiagram,
+	#superclass : #MeEntity,
 	#instVars : [
 		'leftIdentifier',
 		'rightIdentifier'
