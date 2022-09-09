@@ -31,7 +31,10 @@ BaselineOfMermaidPharo >> defineGroups: spec [
 		with:
 			#( 'MermaidPharo' 'MermaidPharo-Extension' 'MermaidPharo-ClassDiagram'
 			   'MermaidPharo-Writter' 'MermaidPharo-Writter-Tests'
-			   'Pharo2Mermaid' 'Pharo2Mermaid-Tests' );
+			   'Pharo2Mermaid' 'Pharo2Mermaid-Tests' 'flowchart' );
+		group: 'flowchart'
+		with: #( 'MermaidPharo-Flowchart' 'MermaidPharo-Writter-Flowchart'
+			   'MermaidPharo-Writter-Flowchart-Tests' );
 		group: 'moose' with: #( 'default' 'Moose2Mermaid' )
 ]
 
@@ -51,5 +54,16 @@ BaselineOfMermaidPharo >> definePackages: spec [
 		package: 'Pharo2Mermaid';
 		package: 'Pharo2Mermaid-Tests'
 		with: [ spec requires: #( 'Pharo2Mermaid' ) ];
-		package: 'Moose2Mermaid'
+		package: 'Moose2Mermaid'.
+
+	"Flowchart"
+	spec
+		package: 'MermaidPharo-Flowchart'
+		with: [ spec requires: #( 'MermaidPharo' ) ].
+	spec
+		package: 'MermaidPharo-Writter-Flowchart'
+		with: [ spec requires: #( 'MermaidPharo-Flowchart' ) ].
+	spec
+		package: 'MermaidPharo-Writter-Flowchart-Tests'
+		with: [ spec requires: #( 'MermaidPharo-Writter-Flowchart' ) ]
 ]

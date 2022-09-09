@@ -1,6 +1,6 @@
 Class {
 	#name : #MeFCNode,
-	#superclass : #MeDiagram,
+	#superclass : #MeFCDefinition,
 	#instVars : [
 		'text',
 		'shape'
