@@ -19,8 +19,8 @@ BaselineOfMermaidPharo >> baseline: spec [
 BaselineOfMermaidPharo >> defineDependencies: spec [
 
 	spec
-		baseline: 'ZLibBinding'
-		with: [ spec repository: 'github://badetitou/libs-common:main/src' ]
+		baseline: 'CApi'
+		with: [ spec repository: 'github://lifeware-sa/C-API:master/src' ]
 ]
 
 { #category : #baselines }
@@ -41,7 +41,7 @@ BaselineOfMermaidPharo >> definePackages: spec [
 	spec
 		package: 'MermaidPharo';
 		package: 'MermaidPharo-Extension'
-		with: [ spec requires: #( 'ZLibBinding' ) ];
+		with: [ spec requires: #( 'CApi' ) ];
 		package: 'MermaidPharo-Extension-Tests'
 		with: [ spec requires: #( 'MermaidPharo-Extension' ) ];
 		package: 'MermaidPharo-ClassDiagram';
