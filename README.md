@@ -5,6 +5,15 @@
 
 You can use mle to generate [MermaidJS](https://mermaid-js.github.io) diagram from Pharo.
 
+## Installation
+
+```st
+Metacello new
+  githubUser: 'badetitou' project: 'MermaidPharo' commitish: 'main' path: 'src';
+  baseline: 'Casino';
+  load
+```
+
 ## Example
 
 ```st
