@@ -17,7 +17,7 @@ MeWritterVisitorFlowchart >> visitFCLink: aMeFCLink [
 		ifNotNil: [ :toArrowType | self <<< toArrowType rightIdentifier ]
 		ifNil: [ self <<< aMeFCLink defaultArrowType new rightIdentifier ].
 	self <<< ' '.
-	self << aMeFCLink toNode name
+	self <<< aMeFCLink toNode name
 ]
 
 { #category : #visiting }
@@ -54,5 +54,5 @@ MeWritterVisitorFlowchart >> visitFlowchartDiagram: aFlowchartDiagram [
 	aFlowchartDiagram definitions ifNotEmpty: [ :definitions | 
 		self cr.
 		self inIndent: [ 
-			definitions do: [ :definition | definition accept: self ] ] ]
+			definitions do: [ :definition | definition accept: self ] separatedBy: [ self cr. ]  ] ]
 ]

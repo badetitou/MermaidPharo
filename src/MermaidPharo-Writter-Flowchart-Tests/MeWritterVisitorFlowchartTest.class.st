@@ -45,6 +45,45 @@ MeWritterVisitorFlowchartTest >> testWriteDiagramWithOneNode [
 ]
 
 { #category : #initialization }
+MeWritterVisitorFlowchartTest >> testWriteDiagramWithTwoNodes [
+
+	| flowchartDiagram result |
+	flowchartDiagram := MeFlowchartDiagram new.
+	flowchartDiagram direction: MeFCDirection TB.
+	flowchartDiagram addDefinition: (MeFCNode named: 'B'); addDefinition: (MeFCNode named: 'A') .
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          flowchartDiagram accept: writter ].
+	self assert: result equals: 'flowchart TB
+    B
+    A'
+]
+
+{ #category : #initialization }
+MeWritterVisitorFlowchartTest >> testWriteDiagramWithTwoNodesAndOneLink [
+
+	| flowchartDiagram result nodeA nodeB linkAB|
+	nodeB := (MeFCNode named: 'B').
+	nodeA := (MeFCNode named: 'A').
+	
+	linkAB := MeFCLink newFromNode: nodeA toNode: nodeB.
+   linkAB toArrowType: MeFCArrowHeadType new.
+	
+	flowchartDiagram := MeFlowchartDiagram new.
+	flowchartDiagram direction: MeFCDirection TB.
+	flowchartDiagram addDefinition: nodeB; addDefinition: nodeA .
+	flowchartDiagram addDefinition: linkAB.
+
+	result := String streamContents: [ :stream | 
+		          writter outputStream: stream.
+		          flowchartDiagram accept: writter ].
+	self assert: result equals: 'flowchart TB
+    B
+    A
+    A --> B'
+]
+
+{ #category : #initialization }
 MeWritterVisitorFlowchartTest >> testWriteFlowchartDiagram [
 
 	| flowchartDiagram result |
