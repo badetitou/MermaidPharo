@@ -9,6 +9,26 @@ Class {
 	#category : #'MermaidPharo-ClassDiagram'
 }
 
+{ #category : #'instance creation' }
+MeClass class >> named: aSymbol [
+
+	^ self new
+		  name: aSymbol;
+		  yourself
+]
+
+{ #category : #sugar }
+MeClass >> --|> aMeClass [
+
+	^ MeCDRelation inheritFrom: aMeClass to: self
+]
+
+{ #category : #sugar }
+MeClass >> <|-- aMeClass [
+
+	^ MeCDRelation inheritFrom: self to: aMeClass
+]
+
 { #category : #accessing }
 MeClass >> accept: mermaidWritter [
 	mermaidWritter visitClass: self 
