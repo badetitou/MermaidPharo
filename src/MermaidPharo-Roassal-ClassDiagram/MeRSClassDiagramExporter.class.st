@@ -18,7 +18,7 @@ MeRSClassDiagramExporter >> rsClassDescriptor [
 
 	^ RSUMLClassDescriptor new
 		  classname: #name;
-		  instVars: [ :cls | cls attributes ];
+		  instVars: [ :cls | cls attributes collect: #name ];
 		  methods: [ :meClass | meClass methods ];
 		  isAbstract: false;
 		  superclass: [ :meClass |
@@ -28,6 +28,7 @@ MeRSClassDiagramExporter >> rsClassDescriptor [
 				  ifNotEmpty: [ :inheritanceRelations |
 					  inheritanceRelations anyOne fromClass ]
 				  ifEmpty: [ nil ] ];
+		methodSelector: [ :method | method name ];
 		  methodsLimit: SmallInteger maxVal
 ]
 
