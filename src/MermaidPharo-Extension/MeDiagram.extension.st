@@ -28,12 +28,12 @@ MeDiagram >> meInspectMermaidDiagram: aBuilder [
 
 { #category : #'*MermaidPharo-Extension' }
 MeDiagram >> meInspectMermaidDiagramString: aBuilder [
-
 	"protocol: #'as yet unclassified'"
 
 	<inspectorPresentationOrder: 0 title: 'Mermaid code'>
 	^ SpCodePresenter new
 		  withoutSyntaxHighlight;
 		  withLineNumbers;
+		  beNotEditable;
 		  text: (self exportWith: self class defaultWritter new)
 ]

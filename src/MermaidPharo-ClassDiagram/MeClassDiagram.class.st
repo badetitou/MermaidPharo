@@ -47,6 +47,18 @@ MeClassDiagram >> initialize [
 	relations := OrderedCollection new
 ]
 
+{ #category : #visiting }
+MeClassDiagram >> meInspectMeRoassalDiagramString: aBuilder [
+
+	<inspectorPresentationOrder: 10 title: 'Roassal Diagram'>
+	| presenter exporter |
+	presenter := SpRoassalPresenter new.
+	exporter := MeRSClassDiagramExporter new.
+
+	presenter canvas: (self accept: exporter).
+	^ presenter
+]
+
 { #category : #accessing }
 MeClassDiagram >> relations [
 
