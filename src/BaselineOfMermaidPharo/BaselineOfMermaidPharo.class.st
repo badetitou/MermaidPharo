@@ -47,7 +47,7 @@ BaselineOfMermaidPharo >> definePackages: spec [
 		with: [ spec requires: #( 'CApi' ) ];
 		package: 'MermaidPharo-Extension-Tests'
 		with: [ spec requires: #( 'MermaidPharo-Extension' ) ];
-		package: 'MermaidPharo-ClassDiagram';
+		"Class Diagram"package: 'MermaidPharo-ClassDiagram';
 		package: 'MermaidPharo-Writter';
 		package: 'MermaidPharo-Writter-Tests'
 		with: [ spec requires: #( 'MermaidPharo-Writter' ) ];
@@ -56,6 +56,10 @@ BaselineOfMermaidPharo >> definePackages: spec [
 		with: [ spec requires: #( 'Pharo2Mermaid' ) ];
 		package: 'Moose2Mermaid'.
 
+	"Class diagram roassal"
+	spec
+		package: 'MermaidPharo-Roassal-ClassDiagram'
+		with: [ spec requires: #( 'MermaidPharo-Writter' ) ].
 	"Flowchart"
 	spec
 		package: 'MermaidPharo-Flowchart'

@@ -13,7 +13,7 @@ Class {
 
 { #category : #visiting }
 MeClassDiagram >> accept: mermaidWritter [
-	mermaidWritter visitClassDiagram: self 
+	^ mermaidWritter visitClassDiagram: self 
 ]
 
 { #category : #accessing }
